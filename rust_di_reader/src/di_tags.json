@@ -1,0 +1,98 @@
+[
+  {
+    "tag": "4:E1:D6:5A:28:31:80",
+    "name": "Elsa",
+    "base_color": [50, 180, 255],
+    "light_program": "elsa"
+  },
+  {
+    "tag": "4:6C:F8:CA:27:35:80",
+    "name": "Anna",
+    "base_color": [200, 50, 200],
+    "light_program": "anna"
+  },
+  {
+    "tag": "4:42:48:9A:32:31:80",
+    "name": "Tinkerbell",
+    "base_color": [0, 255, 0],
+    "light_program": "tinkerbell"
+  },
+  {
+    "tag": "4:A3:6A:2A:E4:2B:80",
+    "name": "Vanellope",
+    "base_color": [0, 255, 100],
+    "light_program": "vanellope"
+  },
+  {
+    "tag": "4:ED:4C:AA:2C:35:80",
+    "name": "Iron Man",
+    "base_color": [255, 0, 0],
+    "light_program": "iron_man"
+  },
+  {
+    "tag": "4:4F:55:D2:2A:31:80",
+    "name": "Sorcerer Mickey",
+    "base_color": [0, 0, 255],
+    "light_program": "sorcerer_mickey"
+  },
+  {
+    "tag": "4:71:1C:3A:C2:22:80",
+    "name": "Sully",
+    "base_color": [0, 255, 100],
+    "light_program": "sully"
+  },
+  {
+    "tag": "4:B5:74:92:9C:3D:80",
+    "name": "Merida",
+    "base_color": [0, 100, 255],
+    "light_program": "merida"
+  },
+  {
+    "tag": "4:BD:AF:82:65:22:80",
+    "name": "Yoda",
+    "base_color": [0, 255, 0],
+    "light_program": "yoda"
+  },
+  {
+    "tag": "4:BF:E1:22:99:2F:80",
+    "name": "Baymax",
+    "base_color": [55, 0, 55],
+    "light_program": "baymax"
+  },
+  {
+    "tag": "4:D6:4E:82:9E:3D:80",
+    "name": "Leia",
+    "base_color": [255, 100, 50],
+    "light_program": "leia"
+  },
+  {
+    "tag": "4:91:A0:E2:E4:2B:80",
+    "name": "Jack Skellington",
+    "base_color": [255, 30, 0],
+    "light_program": "jack_skellington"
+  },
+  {
+    "tag": "4:6D:B3:EA:96:33:80",
+    "name": "Stitch",
+    "base_color": [0, 10, 255],
+    "light_program": "stitch"
+  },
+  {
+    "tag": "4:8:5D:7A:E4:2B:81",
+    "name": "Ralph",
+    "base_color": [255, 30, 0],
+    "light_program": "ralph"
+  },
+  {
+    "tag": "4:68:77:D2:C2:22:80",
+    "name": "Mike",
+    "base_color": [0, 30, 255],
+    "light_program": "mike"
+  },
+  {
+    "tag": "4:4C:3:FA:83:43:84",
+    "name": "Vader",
+    "base_color": [150, 0, 9],
+    "light_program": "vader"
+  }
+]

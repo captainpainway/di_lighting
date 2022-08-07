@@ -1,0 +1,24 @@
+<h2>Get current figure</h2>
+<div class="figure_input">
+  <label for="tag">Tag </label>
+  <input disabled id="tag" [(ngModel)]="tag" placeholder="">
+</div>
+<div *ngIf="!figure.name && tag">
+  <h3>Add New Figure</h3>
+</div>
+<div *ngIf="tag">
+  <div class="figure_input">
+    <label for="name">Figure name </label>
+    <input id="name" [(ngModel)]="figure.name" placeholder="name">
+  </div>
+  <div class="figure_input">
+    <label for="light_program">Light program </label>
+    <input id="light_program" [(ngModel)]="figure.light_program" placeholder="name">
+  </div>
+  <div class="figure_input">
+    <label for="color">Base color </label>
+    <input id="color" [(colorPicker)]="color" [style.background]="color"/>
+  </div>
+  <button id="save_btn" type="button" (click)="save()">Save</button>
+</div>
+<button id="analyze_btn" type="button" (click)="getCurrentTag()">Analyze figure</button>

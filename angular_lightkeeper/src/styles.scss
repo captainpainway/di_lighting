@@ -1,0 +1,162 @@
+/* You can add global styles to this file, and also import other style files */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Droid Sans", sans-serif;
+  color: #333333;
+}
+
+app-root {
+  display: grid;
+  grid-template-columns: 300px 0 1fr;
+  grid-template-rows: auto 1fr;
+}
+
+nav {
+  display: grid;
+  grid-template-rows: 100px 1fr;
+  background-color: #303434;
+  grid-column: 1/2;
+  height: 100vh;
+  h1 {
+    color: aliceblue;
+    text-align: center;
+    font-family: "Droid Sans", sans-serif;
+    text-transform: uppercase;
+    font-size: xx-large;
+  }
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+  li {
+    list-style: none;
+    padding: 20px 20px;
+    border-bottom: solid 1px #232525;
+    &:first-child {
+      border-top: solid 1px #232525;
+    }
+  }
+  a {
+    text-decoration: none;
+    color: aliceblue;
+    font-weight: bold;
+  }
+}
+
+//button {
+//  background-color: #0c8f8f;
+//  color: white;
+//  border: 0;
+//  padding: 10px;
+//  border-radius: 7px;
+//  text-transform: uppercase;
+//  font-weight: bold;
+//}
+button {
+  background-color: #FFFFFF;
+  border: 1px solid rgb(209,213,219);
+  border-radius: .5rem;
+  box-sizing: border-box;
+  color: #1e2633;
+  font-family: Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  font-size: .875rem;
+  font-weight: 600;
+  line-height: 1.25rem;
+  padding: .75rem 1rem;
+  text-align: center;
+  text-decoration: none #D1D5DB solid;
+  text-decoration-thickness: auto;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+button:hover {
+  background-color: rgb(249,250,251);
+}
+
+button:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+button:focus-visible {
+  box-shadow: none;
+}
+
+app-current-figure {
+  padding: 20px;
+  h2 {
+    text-transform: uppercase;
+    font-size: large;
+    font-weight: normal;
+  }
+  h3 {
+    text-transform: uppercase;
+    font-size: medium;
+    font-weight: normal;
+    color: #666666;
+  }
+  .figure_input {
+    padding: 10px 0;
+    display: grid;
+    grid-template-columns: 120px 320px;
+    label {
+      display: flex;
+      align-items: center;
+    }
+    input {
+      border: 1px solid rgb(209,213,219);
+      border-radius: 5px;
+      padding: 1em;
+      font-family: "Ubuntu Mono", monospace;
+      font-size: medium;
+    }
+    #color {
+      cursor: pointer;
+    }
+  }
+  #analyze_btn {
+    background-color: #303434;
+    border: #232525;
+    color: aliceblue;
+    margin-top: 20px;
+    &:hover {
+      background-color: #151515;
+    }
+  }
+}
+
+app-figure-list {
+  padding: 20px 50px 20px 20px;
+  overflow: auto;
+  h2 {
+    text-transform: uppercase;
+    font-size: large;
+    font-weight: normal;
+  }
+  #figures {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-column-gap: 20px;
+    grid-row-gap: 20px;
+    .figure_card {
+      border: 1px solid rgb(209,213,219);
+      * {
+        margin: 1em;
+      }
+      div {
+        display: grid;
+        grid-template-columns: 0.8fr 1.2fr;
+        span {
+          margin: 0;
+          font-variant: all-small-caps;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}

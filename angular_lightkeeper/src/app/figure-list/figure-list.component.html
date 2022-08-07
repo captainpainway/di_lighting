@@ -1,0 +1,10 @@
+<h2>List of registered figures</h2>
+<div id="figures">
+  <div class="figure_card" *ngFor="let figure of figures">
+    <div><span>Name</span> {{figure.name}}</div>
+    <div><span>Tag</span> {{figure.tag}}</div>
+    <div><span>Base color</span> [{{figure.base_r}}, {{figure.base_g}}, {{figure.base_b}}]</div>
+    <div><span>Light program</span> {{figure.light_program}}</div>
+    <button type="button">Update</button>
+  </div>
+</div>
