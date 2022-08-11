@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import {catchError, Observable, of, tap} from "rxjs";
 import { Figure } from "./figure";
+import { environment } from "../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class FigureService {
-  private apiUrl = 'http://localhost:8080/api/figures';
+  private apiUrl = `http://${environment.base_url}/api/figures`;
   httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
   }

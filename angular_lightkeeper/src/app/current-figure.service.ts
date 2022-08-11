@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
 import {Figure} from "./figure";
-import {FigureService} from "./figure.service";
+import { environment } from "../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class CurrentFigureService {
-  private apiUrl = 'http://localhost:8080/api/get_current';
-  private figureUrl = 'http://localhost:8080/api/figures/';
+  private apiUrl = `http://${environment.base_url}/api/get_current`;
+  private figureUrl = `http://${environment.base_url}/api/figures/`;
 
   getCurrentFigureTag(): Observable<{tag: string}> {
     return this.http.get<{tag: string}>(this.apiUrl);

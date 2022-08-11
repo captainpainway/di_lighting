@@ -71,11 +71,9 @@ constructor(private currentFigureService: CurrentFigureService, private figureSe
     }
     this.figure.tag = this.tag;
     const rgb = this.hexToRgb(this.color);
-    console.log(rgb);
     this.figure.base_r = rgb[0];
     this.figure.base_g = rgb[1];
     this.figure.base_b = rgb[2];
-    console.log(this.figure);
     if (this.new_figure) {
       this.figureService.postNewFigure(this.figure as Figure)
         .subscribe(figure => {

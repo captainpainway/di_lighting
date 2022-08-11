@@ -109,7 +109,7 @@ async fn disc_added_or_removed(device: &DeviceHandle<GlobalContext>, data: [u8; 
                 println!("{:?}", light_color);
                 light_base(&device, light_color, &mut message_number).await;
                 println!("{:?}: {:?}", di_tag_vec[0].name, tag);
-                // spawn_lightshow(&di_tag_vec[0].light_program, lightshow_id);
+                spawn_lightshow(&di_tag_vec[0].light_program, lightshow_id);
             } else {
                 light_base(&device, vec![base_num, 255, 255, 255], &mut message_number).await;
                 println!("Unknown tag: {:?}", tag);
@@ -124,7 +124,7 @@ async fn disc_added_or_removed(device: &DeviceHandle<GlobalContext>, data: [u8; 
                 .unwrap();
         }
     } else { // Disc removed from base.
-        // kill_lightshow(lightshow_id);
+        kill_lightshow(lightshow_id);
         light_base(&device, vec![base_num, 0, 0, 0], &mut message_number).await;
         // Send empty string to REST endpoint for web client.
         let body = [("tag", "")];
@@ -138,8 +138,8 @@ async fn disc_added_or_removed(device: &DeviceHandle<GlobalContext>, data: [u8; 
 }
 
 fn spawn_lightshow(light_program: &String, lightshow_id: &mut i32) {
-    let lightshow = Command::new("python")
-        .arg("/home/pi/disney_infinity_lighting/light_programs/disney_infinity_lights.py")
+    let lightshow = Command::new("python3")
+        .arg("/home/pi/di_lighting/python_light_programs/di_lights_2.py")
         .arg(light_program)
         .spawn()
         .expect("Unable to execute light show.");
@@ -163,12 +163,13 @@ fn get_base_color(di_tag: &DITag, base_num: u8) -> Vec<u8> {
 }
 
 async fn check_if_tag_is_known(tag: &String) -> Vec<DITag> {
+    let tmp = DITag {name: String::new(), tag: String::new(), base_r: 0, base_g: 0, base_b: 0, light_program: String::new()};
     let body = reqwest::get("http://localhost:8080/api/figures/".to_owned() + tag)
         .await
         .unwrap()
         .json::<DITag>()
         .await
-        .unwrap();
+        .unwrap_or(tmp);
     vec!(body)
 }
 

@@ -1,7 +1,10 @@
 package com.lightkeeper.springserver.controller;
 import com.lightkeeper.springserver.model.Figure;
+import com.lightkeeper.springserver.model.LightProgram;
 import com.lightkeeper.springserver.repository.FigureRepository;
+import com.lightkeeper.springserver.repository.LightProgramRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,11 +14,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://192.168.0.52:4200")
 @RestController
 @RequestMapping("/api")
 
-public class FigureController {
+public class ApiController {
     @Autowired
     FigureRepository figureRepository;
     String current_tag = "";
@@ -23,7 +26,7 @@ public class FigureController {
     public ResponseEntity<List<Figure>> getAllFigures() {
         try {
             List<Figure> figures = new ArrayList<Figure>();
-            figureRepository.findAll().forEach(figures::add);
+            figureRepository.findAll(Sort.by(Sort.Direction.ASC, "name")).forEach(figures::add);
             if (figures.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
@@ -80,5 +83,54 @@ public class FigureController {
         HashMap<String, String> res = new HashMap<>();
         res.put("tag", current_tag);
         return new ResponseEntity<HashMap<String, String>>(res, HttpStatus.OK);
+    }
+
+    @Autowired
+    LightProgramRepository lightProgramRepository;
+
+    @GetMapping("/light_programs")
+    public ResponseEntity<List<LightProgram>> getAllLightPrograms() {
+        try {
+            List<LightProgram> light_programs = new ArrayList<LightProgram>();
+            lightProgramRepository.findAll(Sort.by(Sort.Direction.ASC, "scheme")).forEach(light_programs::add);
+            if (light_programs.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            return new ResponseEntity<>(light_programs, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/light_programs/{scheme}")
+    public ResponseEntity<LightProgram> getLightProgramByScheme(@PathVariable("scheme") String scheme) {
+        Optional<LightProgram> lightProgramData = lightProgramRepository.findByScheme(scheme);
+        if (lightProgramData.isPresent()) {
+            return new ResponseEntity<>(lightProgramData.get(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PutMapping("light_programs/{scheme}")
+    public ResponseEntity<LightProgram> updateLightProgram(@PathVariable("scheme") String scheme, @RequestBody LightProgram lightProgram) {
+        Optional<LightProgram> lightProgramData = lightProgramRepository.findByScheme(scheme);
+        if (lightProgramData.isPresent()) {
+            LightProgram _lp = lightProgramData.get();
+            _lp.code = lightProgram.code;
+            return new ResponseEntity<>(lightProgramRepository.save(_lp), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PostMapping("/light_programs")
+    public ResponseEntity<LightProgram> createNewLightProgram(@RequestBody LightProgram light_program) {
+        try {
+            LightProgram _light_program = lightProgramRepository.save(new LightProgram(light_program.scheme, light_program.code));
+            return new ResponseEntity<>(_light_program, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

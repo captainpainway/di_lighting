@@ -1,0 +1,6 @@
+<h2>Edit Light Program</h2>
+<input id="lp_name" [(ngModel)]="light_program.scheme" placeholder="name">
+<br/>
+<textarea id="program_code" rows="40" cols="100" [(ngModel)]="light_program.code">{{light_program.code}}</textarea>
+<br/>
+<button type="button" (click)="updateLightProgram()">Save</button>

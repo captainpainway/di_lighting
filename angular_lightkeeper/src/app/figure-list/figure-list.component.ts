@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, of} from "rxjs";
 import { FigureService } from "../figure.service";
 import {Figure} from "../figure";
 

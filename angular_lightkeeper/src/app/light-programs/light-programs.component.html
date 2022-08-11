@@ -1,0 +1,7 @@
+<h2>Light Programs</h2>
+<div *ngFor="let lp of light_programs">
+  <ul>
+    <li><a href="/light_programs/edit/{{lp.scheme}}">{{lp.scheme}}</a></li>
+  </ul>
+</div>
+<button type="button" (click)="addNew()">Add new</button>
