@@ -17,10 +17,6 @@ export class LightProgramsComponent implements OnInit {
       .subscribe(light_programs => this.light_programs = light_programs);
   }
 
-  addNew() {
-    document.location = `/light_programs/add`;
-  }
-
   ngOnInit(): void {
     this.getLightPrograms();
   }

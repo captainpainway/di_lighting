@@ -145,7 +145,7 @@ app-figure-list {
     grid-row-gap: 20px;
     .figure_card {
       border: 1px solid rgb(209,213,219);
-      * {
+      *:not(a) {
         margin: 1em;
       }
       div {

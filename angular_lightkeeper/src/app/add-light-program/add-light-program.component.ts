@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {LightProgram} from "../light-program";
 import {LightProgramsService} from "../light-programs.service";
-import {Figure} from "../figure";
 
 @Component({
   selector: 'app-add-light-program',

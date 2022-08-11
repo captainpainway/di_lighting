@@ -14,13 +14,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin(origins = "http://192.168.0.52:4200")
+@CrossOrigin(origins = "http://192.168.0.52")
 @RestController
 @RequestMapping("/api")
 
 public class ApiController {
     @Autowired
     FigureRepository figureRepository;
+    @Autowired
+    LightProgramRepository lightProgramRepository;
     String current_tag = "";
     @GetMapping("/figures")
     public ResponseEntity<List<Figure>> getAllFigures() {
@@ -84,9 +86,6 @@ public class ApiController {
         res.put("tag", current_tag);
         return new ResponseEntity<HashMap<String, String>>(res, HttpStatus.OK);
     }
-
-    @Autowired
-    LightProgramRepository lightProgramRepository;
 
     @GetMapping("/light_programs")
     public ResponseEntity<List<LightProgram>> getAllLightPrograms() {
