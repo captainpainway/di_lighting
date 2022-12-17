@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from "@angular/router";
 import {LightProgram} from "../light-program";
 import {LightProgramsService} from "../light-programs.service";
 
@@ -14,7 +15,8 @@ export class AddLightProgramComponent implements OnInit {
   }
 
   constructor(
-    private lightProgramsService: LightProgramsService
+    private lightProgramsService: LightProgramsService,
+    private router: Router
   ) { }
 
   addLightProgram(): void {
@@ -25,6 +27,7 @@ export class AddLightProgramComponent implements OnInit {
       .subscribe(light_program => {
         this.light_program = light_program;
       });
+    this.router.navigate(['/light_programs/edit', this.light_program.scheme]);
   }
 
   ngOnInit(): void {}

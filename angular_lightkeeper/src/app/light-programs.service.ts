@@ -3,7 +3,6 @@ import {environment} from "../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {catchError, Observable, of, tap} from "rxjs";
 import {LightProgram} from "./light-program";
-import {Figure} from "./figure";
 
 @Injectable({
   providedIn: 'root'
