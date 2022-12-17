@@ -10,3 +10,15 @@ diesel::table! {
         light_program -> Nullable<Text>,
     }
 }
+
+diesel::table! {
+    light_programs (scheme) {
+        scheme -> Text,
+        code -> Nullable<Text>,
+    }
+}
+
+diesel::allow_tables_to_appear_in_same_query!(
+    figures,
+    light_programs,
+);
