@@ -3,7 +3,16 @@ body {
   margin: 0;
   padding: 0;
   font-family: "Droid Sans", sans-serif;
-  color: #333333;
+  background-color: #111111;
+  color: #ffffff;
+}
+
+a {
+  color: cyan;
+}
+
+a:visited {
+  color: mediumpurple;
 }
 
 app-root {
@@ -39,9 +48,13 @@ nav {
   }
   a {
     text-decoration: none;
-    color: aliceblue;
+    color: aliceblue !important;
     font-weight: bold;
   }
+}
+
+app-home {
+  background-color: #ffffff;
 }
 
 //button {
@@ -54,11 +67,11 @@ nav {
 //  font-weight: bold;
 //}
 button {
-  background-color: #FFFFFF;
-  border: 1px solid rgb(209,213,219);
+  background-color: #303434;
+  border: 1px solid #303434;
   border-radius: .5rem;
   box-sizing: border-box;
-  color: #1e2633;
+  color: aliceblue;
   font-family: Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
   font-size: .875rem;
   font-weight: 600;
@@ -72,19 +85,16 @@ button {
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
-}
-
-button:hover {
-  background-color: rgb(249,250,251);
-}
-
-button:focus {
-  outline: 2px solid transparent;
-  outline-offset: 2px;
-}
-
-button:focus-visible {
-  box-shadow: none;
+  &:hover {
+    background-color: #595970;
+  }
+  &:focus {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+  }
+  &:focus-visible {
+    box-shadow: none;
+  }
 }
 
 app-current-figure {
@@ -125,7 +135,7 @@ app-current-figure {
     color: aliceblue;
     margin-top: 20px;
     &:hover {
-      background-color: #151515;
+      background-color: #698181;
     }
   }
 }
@@ -191,17 +201,25 @@ app-edit-light-program, app-add-light-program {
     font-weight: normal;
     color: #666666;
   }
-  input {
-    border: 1px solid rgb(209,213,219);
-    border-radius: 5px;
-    padding: 1em;
-    font-family: "Ubuntu Mono", monospace;
-    font-size: medium;
-    margin-bottom: 1em;
-  }
-  textarea {
-    border: 1px solid rgb(209,213,219);
-  }
+}
+
+textarea {
+  //border: 1px solid rgb(209,213,219);
+  border: 0;
+  background-color: #232525;
+  color: #ffffff;
+  padding: 1em;
+  box-sizing: border-box;
+}
+input {
+  border: 1px solid rgb(209,213,219);
+  border-radius: 5px;
+  padding: 1em;
+  font-family: "Ubuntu Mono", monospace;
+  font-size: medium;
+  margin-bottom: 1em;
+  background-color: #232525;
+  color: #ffffff;
 }
 
 #home_image {

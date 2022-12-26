@@ -17,7 +17,7 @@ export class CurrentFigureComponent implements OnInit {
     base_r: 255,
     base_g: 255,
     base_b: 255,
-    light_program: ''
+    light_program: 0
   };
   color: string = '#ffffff'
   new_figure: boolean = true;
@@ -37,7 +37,7 @@ constructor(private currentFigureService: CurrentFigureService, private figureSe
             base_r: 255,
             base_g: 255,
             base_b: 255,
-            light_program: ''
+            light_program: 0
           };
           this.color = "#ffffff";
         }
@@ -57,7 +57,7 @@ constructor(private currentFigureService: CurrentFigureService, private figureSe
           base_r: 255,
           base_g: 255,
           base_b: 255,
-          light_program: ''
+          light_program: 0
         };
         this.color = "#ffffff";
         this.new_figure = true;
@@ -74,6 +74,7 @@ constructor(private currentFigureService: CurrentFigureService, private figureSe
     this.figure.base_r = rgb[0];
     this.figure.base_g = rgb[1];
     this.figure.base_b = rgb[2];
+    this.figure.light_program = +this.figure.light_program;
     if (this.new_figure) {
       this.figureService.postNewFigure(this.figure as Figure)
         .subscribe(figure => {

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LightProgramsComponent } from './light-programs.component';
+import { LedInterfaceComponent } from './led-interface.component';
 
-describe('LightProgramsComponent', () => {
-  let component: LightProgramsComponent;
-  let fixture: ComponentFixture<LightProgramsComponent>;
+describe('LedInterfaceComponent', () => {
+  let component: LedInterfaceComponent;
+  let fixture: ComponentFixture<LedInterfaceComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LightProgramsComponent ]
+      declarations: [ LedInterfaceComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(LightProgramsComponent);
+    fixture = TestBed.createComponent(LedInterfaceComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

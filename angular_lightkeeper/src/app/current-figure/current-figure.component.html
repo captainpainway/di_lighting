@@ -3,17 +3,14 @@
   <label for="tag">Tag </label>
   <input disabled id="tag" [(ngModel)]="tag" placeholder="">
 </div>
-<div *ngIf="!figure.name && tag">
-  <h3>Add New Figure</h3>
-</div>
 <div *ngIf="tag">
   <div class="figure_input">
     <label for="name">Figure name </label>
-    <input id="name" [(ngModel)]="figure.name" placeholder="name">
+    <input id="name" [(ngModel)]="figure.name" placeholder="Add new">
   </div>
   <div class="figure_input">
-    <label for="light_program">Light program </label>
-    <input id="light_program" [(ngModel)]="figure.light_program" placeholder="name">
+    <label for="light_program">Light program (preset number from LED interface)</label>
+    <input id="light_program" [(ngModel)]="figure.light_program" placeholder="light program">
   </div>
   <div class="figure_input">
     <label for="color">Base color </label>
