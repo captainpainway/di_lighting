@@ -41,10 +41,6 @@ async fn main() -> std::io::Result<()> {
                     .service(set_current)
                     .service(new_figure)
                     .service(update_figure)
-                    .service(all_lights)
-                    .service(light_program)
-                    .service(new_light_program)
-                    .service(update_light_program)
             )
     })
         .bind(("127.0.0.1", 8080))?
@@ -111,35 +107,4 @@ async fn get_current(data: web::Data<AppState>) -> impl Responder {
             HttpResponse::Ok().body(json)
         }
     }
-}
-
-#[get("/light_programs")]
-async fn all_lights() -> impl Responder {
-    let lights = db::get_all_light_programs();
-    let json = serde_json::to_string(&lights).expect("");
-    HttpResponse::Ok().body(json)
-}
-
-#[get("/light_programs/{scheme}")]
-async fn light_program(path: web::Path<String>) -> impl Responder {
-    let light_programs = db::get_light_program(path.to_string());
-    match light_programs.len() {
-        0 => HttpResponse::NotFound().body(""),
-        _ => {
-            let json = serde_json::to_string(&light_programs[0]).expect("");
-            HttpResponse::Ok().body(json)
-        }
-    }
-}
-
-#[post("/light_programs")]
-async fn new_light_program(req_body: String) -> impl Responder {
-    db::post_light_program(req_body);
-    HttpResponse::Ok().body("")
-}
-
-#[put("/light_programs/{scheme}")]
-async fn update_light_program(path: web::Path<String>, req_body: String) -> impl Responder {
-    db::put_light_program(path.to_string(), req_body);
-    HttpResponse::Ok().body("")
 }

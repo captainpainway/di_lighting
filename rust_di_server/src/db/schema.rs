@@ -7,18 +7,6 @@ diesel::table! {
         base_r -> Nullable<Int4>,
         base_g -> Nullable<Int4>,
         base_b -> Nullable<Int4>,
-        light_program -> Nullable<Text>,
+        light_program -> Nullable<Int4>,
     }
 }
-
-diesel::table! {
-    light_programs (scheme) {
-        scheme -> Text,
-        code -> Nullable<Text>,
-    }
-}
-
-diesel::allow_tables_to_appear_in_same_query!(
-    figures,
-    light_programs,
-);

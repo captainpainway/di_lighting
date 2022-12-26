@@ -1,5 +1,3 @@
-use std::convert::TryFrom;
-use std::process::Command;
 use std::time::Duration;
 use rusb::{DeviceHandle, GlobalContext};
 use serde::{Deserialize};
@@ -11,13 +9,12 @@ struct DITag {
     base_r: u8,
     base_g: u8,
     base_b: u8,
-    light_program: String,
+    light_program: u8,
 }
 
 #[tokio::main]
 async fn main() {
     let mut message_number: u8 = 0;
-    let mut lightshow_id: i32 = 0;
     let device = start_device().expect("No device found.");
 
     // Send activation code.
@@ -27,7 +24,7 @@ async fn main() {
     loop {
         let val = wait_for_tag(&device).await;
         match val[0x00] {
-            0xab => disc_added_or_removed(&device, val, &mut message_number, &mut lightshow_id).await,
+            0xab => disc_added_or_removed(&device, val, &mut message_number).await,
             _ => (),
         }
     }
@@ -96,7 +93,7 @@ async fn wait_for_tag(device: &DeviceHandle<GlobalContext>) -> [u8; 32] {
     read_buffer(device)
 }
 
-async fn disc_added_or_removed(device: &DeviceHandle<GlobalContext>, data: [u8; 32], mut message_number: &mut u8, lightshow_id: &mut i32) {
+async fn disc_added_or_removed(device: &DeviceHandle<GlobalContext>, data: [u8; 32], mut message_number: &mut u8) {
     let base_num = data[2];
     let disc_ref = data[4];
     let added_removed = data[5];
@@ -104,12 +101,11 @@ async fn disc_added_or_removed(device: &DeviceHandle<GlobalContext>, data: [u8; 
         let tag = read_tag(&device, disc_ref, message_number).await;
         if tag != "No tag found" {
             let di_tag_vec = check_if_tag_is_known(&tag).await;
-            if di_tag_vec.len() > 0 {
+            if di_tag_vec[0].name.len() > 0 {
                 let light_color = get_base_color(&di_tag_vec[0], base_num);
-                println!("{:?}", light_color);
                 light_base(&device, light_color, &mut message_number).await;
                 println!("{:?}: {:?}", di_tag_vec[0].name, tag);
-                spawn_lightshow(&di_tag_vec[0].light_program, lightshow_id);
+                spawn_lightshow(&di_tag_vec[0].light_program).await;
             } else {
                 light_base(&device, vec![base_num, 255, 255, 255], &mut message_number).await;
                 println!("Unknown tag: {:?}", tag);
@@ -124,7 +120,7 @@ async fn disc_added_or_removed(device: &DeviceHandle<GlobalContext>, data: [u8; 
                 .unwrap();
         }
     } else { // Disc removed from base.
-        kill_lightshow(lightshow_id);
+        kill_lightshow().await;
         light_base(&device, vec![base_num, 0, 0, 0], &mut message_number).await;
         // Send empty string to REST endpoint for web client.
         let body = [("tag", "")];
@@ -137,24 +133,28 @@ async fn disc_added_or_removed(device: &DeviceHandle<GlobalContext>, data: [u8; 
     }
 }
 
-fn spawn_lightshow(light_program: &String, lightshow_id: &mut i32) {
-    let lightshow = Command::new("python3")
-        .arg("/home/pi/di_lighting/python_light_programs/di_lights_2.py")
-        .arg(light_program)
-        .spawn()
-        .expect("Unable to execute light show.");
-    *lightshow_id = i32::try_from(lightshow.id()).unwrap();
-    println!("Started process: {:?}", lightshow_id);
+async fn spawn_lightshow(light_program: &u8) {
+    if *light_program != 0 as u8 {
+        let body = format!("{{\"on\": true, \"playlist\": {{\"ps\": [{}]}}}}", light_program);
+        let client = reqwest::Client::new();
+        client.post("http://192.168.0.83/json")
+            .body(body)
+            .send()
+            .await
+            .unwrap();
+        println!("Started light show: {:?}", light_program);
+    }
 }
 
-fn kill_lightshow(lightshow_id: &mut i32) {
-    if *lightshow_id > 0 {
-        unsafe {
-            libc::kill(*lightshow_id as i32, libc::SIGINT);
-        }
-    }
-    println!("Killed process: {:?}", lightshow_id);
-    *lightshow_id = 0;
+async fn kill_lightshow() {
+    let body = "{\"on\": false}";
+    let client = reqwest::Client::new();
+    client.post("http://192.168.0.83/json")
+        .body(body)
+        .send()
+        .await
+        .unwrap();
+    println!("Lights are now off");
 }
 
 fn get_base_color(di_tag: &DITag, base_num: u8) -> Vec<u8> {
@@ -163,7 +163,7 @@ fn get_base_color(di_tag: &DITag, base_num: u8) -> Vec<u8> {
 }
 
 async fn check_if_tag_is_known(tag: &String) -> Vec<DITag> {
-    let tmp = DITag {name: String::new(), tag: String::new(), base_r: 0, base_g: 0, base_b: 0, light_program: String::new()};
+    let tmp = DITag {name: String::new(), tag: String::new(), base_r: 0, base_g: 0, base_b: 0, light_program: 0};
     let body = reqwest::get("http://localhost:8080/api/figures/".to_owned() + tag)
         .await
         .unwrap()

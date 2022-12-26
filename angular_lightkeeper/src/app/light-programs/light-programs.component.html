@@ -1,7 +1,0 @@
-<h2>Light Programs</h2>
-<div *ngFor="let lp of light_programs">
-  <ul>
-    <li><a [routerLink]="['/light_programs/edit', lp.scheme]">{{lp.scheme}}</a></li>
-  </ul>
-</div>
-<button type="button" [routerLink]="['/light_programs/add']">Add new</button>

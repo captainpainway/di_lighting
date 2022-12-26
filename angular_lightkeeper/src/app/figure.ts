@@ -4,5 +4,5 @@ export interface Figure {
   base_r: number;
   base_g: number;
   base_b: number;
-  light_program: string;
+  light_program: number;
 }
